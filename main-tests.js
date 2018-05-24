@@ -189,7 +189,7 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 		});
 
 		it('returns substitutedPath for detailed param', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alpha/:bravo(\d+)')({
+			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alpha/:bravo(\\d+)')({
 				bravo: '1',
 			}), '/alpha/1');
 		});
