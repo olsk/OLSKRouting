@@ -165,3 +165,35 @@ describe('OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams', function te
 	});
 
 });
+
+describe('OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames', function testOLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames() {
+
+	it('throws error if param1 not string', function() {
+		assert.throws(function() {
+			routingLibrary.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames(null, []);
+		}, /OLSKErrorInputInvalid/);
+	});
+
+	it('throws error if param2 not array', function() {
+		assert.throws(function() {
+			routingLibrary.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames('', null);
+		}, /OLSKErrorInputInvalid/);
+	});
+
+	it('returns path', function() {
+		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames('', []).toString(), (function(inputData) {
+		var substitutedPath = canonicalPath;
+		
+		paramNames.forEach(function(e) {
+			if (!inputData[e.split(':').pop()]) {
+				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
+			}
+
+			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop()]);
+		});
+
+		return substitutedPath;
+	}).toString());
+	});
+
+});

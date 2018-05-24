@@ -61,13 +61,7 @@ exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(rout
 			throw new Error('OLSKErrorInputInvalidMissingInput');
 		}
 
-		matches.forEach(function(e) {
-			if (!optionalParams[e.split(':').pop()]) {
-				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
-			}
-
-			canonicalPath = canonicalPath.replace(e, optionalParams[e.split(':').pop()]);
-		});
+		canonicalPath = exports.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames(canonicalPath, matches)(optionalParams);
 	}
 
 	if (optionalParams && optionalParams.OLSKRoutingLanguage) {
@@ -75,4 +69,30 @@ exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(rout
 	}
 
 	return canonicalPath;
+};
+
+//_ OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames
+
+exports.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames = function(canonicalPath, paramNames) {
+	if (typeof canonicalPath !== 'string') {
+		throw new Error('OLSKErrorInputInvalid');
+	}
+
+	if (!Array.isArray(paramNames)) {
+		throw new Error('OLSKErrorInputInvalid');
+	}
+
+	return function(inputData) {
+		var substitutedPath = canonicalPath;
+		
+		paramNames.forEach(function(e) {
+			if (!inputData[e.split(':').pop()]) {
+				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
+			}
+
+			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop()]);
+		});
+
+		return substitutedPath;
+	};
 };
