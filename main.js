@@ -48,21 +48,12 @@ exports.OLSKRoutingInputDataIsRouteObject = function(inputData) {
 
 //_ OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams
 
-exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(routeObject, optionalParams) {
+exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(routeObject, optionalParams = {}) {
 	if (!exports.OLSKRoutingInputDataIsRouteObject(routeObject)) {
 		throw new Error('OLSKErrorInputInvalid');
 	}
 
-	var canonicalPath = routeObject.OLSKRoutePath;
-
-	var matches = routeObject.OLSKRoutePath.match(/(:[A-Za-z0-9_]*)/g);
-	if (matches) {
-		if (typeof optionalParams !== 'object' || optionalParams === null) {
-			throw new Error('OLSKErrorInputInvalidMissingInput');
-		}
-
-		canonicalPath = exports.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames(canonicalPath, matches)(optionalParams);
-	}
+	var canonicalPath = exports.OLSKRoutingSubstitutionFunctionForRoutePath(routeObject.OLSKRoutePath)(optionalParams);
 
 	if (optionalParams && optionalParams.OLSKRoutingLanguage) {
 		canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
@@ -71,21 +62,22 @@ exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(rout
 	return canonicalPath;
 };
 
-//_ OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames
+//_ OLSKRoutingSubstitutionFunctionForRoutePath
 
-exports.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames = function(canonicalPath, paramNames) {
-	if (typeof canonicalPath !== 'string') {
+exports.OLSKRoutingSubstitutionFunctionForRoutePath = function(routePath) {
+	if (typeof routePath !== 'string') {
 		throw new Error('OLSKErrorInputInvalid');
 	}
 
-	if (!Array.isArray(paramNames)) {
-		throw new Error('OLSKErrorInputInvalid');
-	}
+	var functionString = (
+	function (inputData) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('OLSKErrorInputInvalidMissingInput');
+		}
 
-	return function(inputData) {
-		var substitutedPath = canonicalPath;
-		
-		paramNames.forEach(function(e) {
+		var substitutedPath = 'OLSKRoutingSubstitutionFunctionTemplate';
+
+		(substitutedPath.match(/(:[A-Za-z0-9_]*)/g) || []).forEach(function(e) {
 			if (!inputData[e.split(':').pop()]) {
 				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
 			}
@@ -94,5 +86,10 @@ exports.OLSKRoutingSubstitutionFunctionWithCanonicalPathAndParamNames = function
 		});
 
 		return substitutedPath;
-	};
+	}
+	).toString().replace('OLSKRoutingSubstitutionFunctionTemplate', routePath);
+
+	var alfa;
+	eval('alfa = ' + functionString);
+	return alfa;
 };
