@@ -77,12 +77,12 @@ exports.OLSKRoutingSubstitutionFunctionForRoutePath = function(routePath) {
 
 		var substitutedPath = 'OLSKRoutingSubstitutionFunctionTemplate';
 
-		(substitutedPath.match(/(:[A-Za-z0-9_]*)/g) || []).forEach(function(e) {
-			if (!inputData[e.split(':').pop()]) {
+		(substitutedPath.match(/(:[\w]+(\(.*\))?)/g) || []).forEach(function(e) {
+			if (!inputData[e.split(':').pop().split('(').shift()]) {
 				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
 			}
 
-			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop()]);
+			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
 		});
 
 		return substitutedPath;

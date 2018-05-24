@@ -144,12 +144,12 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 
 		var substitutedPath = '/alfa';
 
-		(substitutedPath.match(/(:[A-Za-z0-9_]*)/g) || []).forEach(function(e) {
-			if (!inputData[e.split(':').pop()]) {
+		(substitutedPath.match(/(:[\w]+(\(.*\))?)/g) || []).forEach(function(e) {
+			if (!inputData[e.split(':').pop().split('(').shift()]) {
 				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
 			}
 
-			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop()]);
+			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
 		});
 
 		return substitutedPath;
@@ -186,6 +186,12 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 				bravo: 'charlie',
 				delta: 'echo'
 			}), '/alpha/charlie/echo');
+		});
+
+		it('returns substitutedPath for detailed param', function() {
+			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alpha/:bravo(\d+)')({
+				bravo: '1',
+			}), '/alpha/1');
 		});
 
 	})
