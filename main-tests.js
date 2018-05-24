@@ -124,7 +124,7 @@ describe('OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams', function te
 				routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(Object.assign(OLSKTestingRouteObjectValid(), {
 					OLSKRoutePath: '/alpha/:bravo',
 				}));
-			}, /OLSKErrorInputInvalid/);
+			}, /OLSKErrorInputInvalidMissingInput/);
 		});
 
 		it('throws error if param2 without matching single param', function() {
@@ -132,7 +132,7 @@ describe('OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams', function te
 				routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(Object.assign(OLSKTestingRouteObjectValid(), {
 					OLSKRoutePath: '/alpha/:bravo',
 				}), {});
-			}, /OLSKErrorInputInvalid/);
+			}, /OLSKErrorInputInvalidMissingRouteParam/);
 		});
 
 		it('returns path with single param substituted', function() {

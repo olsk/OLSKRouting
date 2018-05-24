@@ -58,12 +58,12 @@ exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(rout
 	var matches = routeObject.OLSKRoutePath.match(/(:[A-Za-z0-9_]*)/g);
 	if (matches) {
 		if (typeof optionalParams !== 'object' || optionalParams === null) {
-			throw new Error('OLSKErrorInputInvalid');
+			throw new Error('OLSKErrorInputInvalidMissingInput');
 		}
 
 		matches.forEach(function(e) {
 			if (!optionalParams[e.split(':').pop()]) {
-				throw new Error('OLSKErrorInputInvalid');
+				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
 			}
 
 			canonicalPath = canonicalPath.replace(e, optionalParams[e.split(':').pop()]);
