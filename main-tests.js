@@ -137,23 +137,23 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 
 	it('returns function', function() {
 		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa', []).toString(), (
-	function (inputData) {
-		if (typeof inputData !== 'object' || inputData === null) {
-			throw new Error('OLSKErrorInputInvalidMissingInput');
-		}
-
-		var substitutedPath = '/alfa';
-
-		(substitutedPath.match(/(:[\w]+(\(.*\))?)/g) || []).forEach(function(e) {
-			if (!inputData[e.split(':').pop().split('(').shift()]) {
-				throw new Error('OLSKErrorInputInvalidMissingRouteParam');
+		function(inputData) {
+			if (typeof inputData !== 'object' || inputData === null) {
+				throw new Error('OLSKErrorInputInvalidMissingInput');
 			}
 
-			substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
-		});
+			var substitutedPath = '/alfa';
 
-		return substitutedPath;
-	}
+			(substitutedPath.match(/(:[\w]+(\(.*\))?)/g) || []).forEach(function(e) {
+				if (!inputData[e.split(':').pop().split('(').shift()]) {
+					throw new Error('OLSKErrorInputInvalidMissingRouteParam');
+				}
+
+				substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
+			});
+
+			return substitutedPath;
+		}
 		).toString());
 	});
 
@@ -194,6 +194,6 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 			}), '/alpha/1');
 		});
 
-	})
+	});
 
 });
