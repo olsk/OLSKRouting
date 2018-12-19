@@ -123,6 +123,31 @@ describe('OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams', function te
 		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(OLSKTestingRouteObjectValid(), {
 			OLSKRoutingLanguage: 'en'
 		}), '/en/alpha');
+
+});
+
+describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function testOLSKRoutingCanonicalPathWithRoutePathAndOptionalParams() {
+
+	it('throws error if param1 not string', function() {
+		assert.throws(function() {
+			routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams(null);
+		}, /OLSKErrorInputInvalid/);
+	});
+
+	it('returns path', function() {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa'), '/alfa');
+	});
+
+	it('returns substitutedPath', function() {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa/:bravo', {
+			bravo: 'charlie',
+		}), '/alfa/charlie');
+	});
+
+	it('returns localized path with OLSKRoutingLanguage', function() {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
+			OLSKRoutingLanguage: 'en'
+		}), '/en/alfa');
 	});
 
 });

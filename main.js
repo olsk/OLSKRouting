@@ -69,6 +69,22 @@ exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(rout
 	return canonicalPath;
 };
 
+//_ OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams
+
+exports.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams = function(routePath, optionalParams = {}) {
+	if (typeof routePath !== 'string') {
+		throw new Error('OLSKErrorInputInvalid');
+	}
+
+	var canonicalPath = exports.OLSKRoutingSubstitutionFunctionForRoutePath(routePath)(optionalParams);
+
+	if (optionalParams && optionalParams.OLSKRoutingLanguage) {
+		canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
+	}
+
+	return canonicalPath;
+};
+
 //_ OLSKRoutingSubstitutionFunctionForRoutePath
 
 exports.OLSKRoutingSubstitutionFunctionForRoutePath = function(routePath) {
