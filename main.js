@@ -4,6 +4,13 @@
  * MIT Licensed
  */
 
+(function(global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+		typeof define === 'function' && define.amd ? define(['exports'], factory) :
+			(factory((global.OLSKRouting = global.OLSKRouting || {})));
+}(this, (function(exports) {
+	'use strict';
+
 //_ OLSKRoutingInputDataIsRouteObject
 
 exports.OLSKRoutingInputDataIsRouteObject = function(inputData) {
@@ -93,3 +100,9 @@ exports.OLSKRoutingSubstitutionFunctionForRoutePath = function(routePath) {
 	eval('alfa = ' + functionString);
 	return alfa;
 };
+
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+
+})));
