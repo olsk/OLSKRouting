@@ -56,17 +56,13 @@ exports.OLSKRoutingInputDataIsRouteObject = function(inputData) {
 //_ OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams
 
 exports.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams = function(routeObject, optionalParams = {}) {
+	console.warn('OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams is deprecated. Use OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams instead');
+	
 	if (!exports.OLSKRoutingInputDataIsRouteObject(routeObject)) {
 		throw new Error('OLSKErrorInputInvalid');
 	}
 
-	var canonicalPath = exports.OLSKRoutingSubstitutionFunctionForRoutePath(routeObject.OLSKRoutePath)(optionalParams);
-
-	if (optionalParams && optionalParams.OLSKRoutingLanguage) {
-		canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
-	}
-
-	return canonicalPath;
+	return exports.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams(routeObject.OLSKRoutePath, optionalParams);
 };
 
 //_ OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams
