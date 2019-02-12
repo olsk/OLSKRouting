@@ -99,34 +99,6 @@ describe('OLSKRoutingInputDataIsRouteObject', function testOLSKRoutingInputDataI
 
 });
 
-describe('OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams', function testOLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams() {
-
-	it('throws error if param1 not routeObject', function() {
-		assert.throws(function() {
-			routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(null);
-		}, /OLSKErrorInputInvalid/);
-	});
-
-	it('returns path', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(OLSKTestingRouteObjectValid()), '/alfa');
-	});
-
-	it('returns substitutedPath', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(Object.assign(OLSKTestingRouteObjectValid(), {
-			OLSKRoutePath: '/alfa/:bravo',
-		}), {
-			bravo: 'charlie',
-		}), '/alfa/charlie');
-	});
-
-	it('returns localized path with OLSKRoutingLanguage', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRouteObjectAndOptionalParams(OLSKTestingRouteObjectValid(), {
-			OLSKRoutingLanguage: 'en'
-		}), '/en/alfa');
-	});
-
-});
-
 describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function testOLSKRoutingCanonicalPathWithRoutePathAndOptionalParams() {
 
 	it('throws error if param1 not string', function() {
