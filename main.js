@@ -38,6 +38,16 @@ exports.OLSKRoutingInputDataIsRouteObject = function(inputData) {
 		return false;
 	}
 
+	if (inputData.OLSKRouteSignature !== undefined) {
+		if (typeof inputData.OLSKRouteSignature !== 'string') {
+			return false;
+		}
+
+		if (inputData.OLSKRouteSignature.match(/\s/)) {
+			return false;
+		};
+	}
+
 	if (inputData.OLSKRouteIsHidden) {
 		if (typeof inputData.OLSKRouteIsHidden !== 'boolean') {
 			return false;
