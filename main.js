@@ -74,9 +74,13 @@ exports.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams = function(routeP
 
 	if (optionalParams && optionalParams.OLSKRoutingLanguage) {
 		canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
+
+		delete optionalParams.OLSKRoutingLanguage;
 	}
 
-	return canonicalPath;
+	const query = Object.keys(optionalParams).map(key => key + '=' + optionalParams[key]).join('&');
+
+	return canonicalPath + (query ? `?${ query }` : '');
 };
 
 //_ OLSKRoutingSubstitutionFunctionForRoutePath
@@ -100,6 +104,8 @@ exports.OLSKRoutingSubstitutionFunctionForRoutePath = function(routePath) {
 				}
 
 				substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
+
+				delete inputData[e.split(':').pop().split('(').shift()]
 			});
 
 			return substitutedPath;

@@ -144,6 +144,12 @@ describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test
 		}), '/en/alfa');
 	});
 
+	it('adds query string for other params', function() {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
+			bravo: 'charlie',
+		}), '/alfa?bravo=charlie');
+	});
+
 });
 
 describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRoutingSubstitutionFunctionForRoutePath() {
@@ -169,6 +175,8 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 				}
 
 				substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
+
+				delete inputData[e.split(':').pop().split('(').shift()]
 			});
 
 			return substitutedPath;
