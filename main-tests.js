@@ -138,10 +138,16 @@ describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test
 		}), '/alfa/charlie');
 	});
 
-	it('returns localized path with OLSKRoutingLanguage', function() {
+	it('prepends OLSKRoutingLanguage', function() {
 		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
 			OLSKRoutingLanguage: 'en'
 		}), '/en/alfa');
+	});
+
+	it('prepends OLSKRoutingOrigin', function() {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
+			OLSKRoutingOrigin: 'bravo'
+		}), 'bravo/alfa');
 	});
 
 	it('adds query string for other params', function() {

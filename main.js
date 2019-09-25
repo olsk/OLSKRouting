@@ -78,6 +78,12 @@ exports.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams = function(routeP
 		delete optionalParams.OLSKRoutingLanguage;
 	}
 
+	if (optionalParams && optionalParams.OLSKRoutingOrigin) {
+		canonicalPath = [optionalParams.OLSKRoutingOrigin, canonicalPath].join('');
+
+		delete optionalParams.OLSKRoutingOrigin;
+	}
+
 	const query = Object.keys(optionalParams).map(key => key + '=' + optionalParams[key]).join('&');
 
 	return canonicalPath + (query ? `?${ query }` : '');
