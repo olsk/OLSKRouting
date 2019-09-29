@@ -67,7 +67,7 @@ exports.OLSKRoutingInputDataIsRouteObject = function(inputData) {
 
 exports.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams = function(routePath, optionalParams = {}) {
 	if (typeof routePath !== 'string') {
-		throw new Error('OLSKErrorInputInvalid');
+		throw new Error('OLSKErrorInputNotValid');
 	}
 
 	var canonicalPath = exports.OLSKRoutingSubstitutionFunctionForRoutePath(routePath)(optionalParams);
@@ -93,20 +93,20 @@ exports.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams = function(routeP
 
 exports.OLSKRoutingSubstitutionFunctionForRoutePath = function(routePath) {
 	if (typeof routePath !== 'string') {
-		throw new Error('OLSKErrorInputInvalid');
+		throw new Error('OLSKErrorInputNotValid');
 	}
 
 	var functionString = (
 		function(inputData) {
 			if (typeof inputData !== 'object' || inputData === null) {
-				throw new Error('OLSKErrorInputInvalidMissingInput');
+				throw new Error('OLSKErrorInputNotValidMissingInput');
 			}
 
 			var substitutedPath = 'OLSKRoutingSubstitutionFunctionTemplate';
 
 			(substitutedPath.match(/(:[\w]+(\(.*\))?)/g) || []).forEach(function(e) {
 				if (!inputData[e.split(':').pop().split('(').shift()]) {
-					throw new Error('OLSKErrorInputInvalidMissingRouteParam');
+					throw new Error('OLSKErrorInputNotValidMissingRouteParam');
 				}
 
 				substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);

@@ -125,7 +125,7 @@ describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test
 	it('throws error if param1 not string', function() {
 		assert.throws(function() {
 			routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams(null);
-		}, /OLSKErrorInputInvalid/);
+		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('returns path', function() {
@@ -163,21 +163,21 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 	it('throws error if not string', function() {
 		assert.throws(function() {
 			routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath(null, []);
-		}, /OLSKErrorInputInvalid/);
+		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('returns function', function() {
 		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa', []).toString(), (
 		function(inputData) {
 			if (typeof inputData !== 'object' || inputData === null) {
-				throw new Error('OLSKErrorInputInvalidMissingInput');
+				throw new Error('OLSKErrorInputNotValidMissingInput');
 			}
 
 			var substitutedPath = '/alfa';
 
 			(substitutedPath.match(/(:[\w]+(\(.*\))?)/g) || []).forEach(function(e) {
 				if (!inputData[e.split(':').pop().split('(').shift()]) {
-					throw new Error('OLSKErrorInputInvalidMissingRouteParam');
+					throw new Error('OLSKErrorInputNotValidMissingRouteParam');
 				}
 
 				substitutedPath = substitutedPath.replace(e, inputData[e.split(':').pop().split('(').shift()]);
@@ -195,7 +195,7 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 		it('throws error if not object', function() {
 			assert.throws(function() {
 				routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('')();
-			}, /OLSKErrorInputInvalidMissingInput/);
+			}, /OLSKErrorInputNotValidMissingInput/);
 		});
 
 		it('returns canonicalPath if no substitutions', function() {
@@ -205,7 +205,7 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 		it('throws error if matching param missing', function() {
 			assert.throws(function() {
 				routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa/:bravo')({});
-			}, /OLSKErrorInputInvalidMissingRouteParam/);
+			}, /OLSKErrorInputNotValidMissingRouteParam/);
 		});
 
 		it('returns substitutedPath for single param', function() {
