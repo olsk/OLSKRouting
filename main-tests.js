@@ -166,7 +166,7 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRouting
 		}, /OLSKErrorInputNotValid/);
 	});
 
-	it('returns function', function() {
+	it.skip('returns function', function() {
 		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa', []).toString(), (
 		function(inputData) {
 			if (typeof inputData !== 'object' || inputData === null) {
