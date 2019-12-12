@@ -13,7 +13,7 @@ var OLSKTestingRouteObjectValid = function() {
 		OLSKRoutePath: '/alfa',
 		OLSKRouteSignature: 'bravo',
 		OLSKRouteMethod: 'get',
-		OLSKRouteFunction: function() {},
+		OLSKRouteFunction () {},
 	};
 };
 
