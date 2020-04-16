@@ -24,7 +24,7 @@ var OLSKTestingRouteObjectValidRedirect = function() {
 	};
 };
 
-describe('OLSKRoutingInputDataIsRouteObject', function testOLSKRoutingInputDataIsRouteObject() {
+describe('OLSKRoutingInputDataIsRouteObject', function test_OLSKRoutingInputDataIsRouteObject() {
 
 	it('returns false if not object', function() {
 		assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(null), false);
@@ -120,7 +120,7 @@ describe('OLSKRoutingInputDataIsRouteObject', function testOLSKRoutingInputDataI
 
 });
 
-describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function testOLSKRoutingCanonicalPathWithRoutePathAndOptionalParams() {
+describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test_OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams() {
 
 	it('throws error if param1 not string', function() {
 		assert.throws(function() {
@@ -158,7 +158,7 @@ describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test
 
 });
 
-describe('OLSKRoutingSubstitutionFunctionForRoutePath', function testOLSKRoutingSubstitutionFunctionForRoutePath() {
+describe('OLSKRoutingSubstitutionFunctionForRoutePath', function test_OLSKRoutingSubstitutionFunctionForRoutePath() {
 
 	it('throws error if not string', function() {
 		assert.throws(function() {
