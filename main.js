@@ -61,7 +61,7 @@
 				throw new Error('OLSKErrorInputNotValid');
 			}
 
-			var canonicalPath = exports.OLSKRoutingSubstitutionFunctionForRoutePath(routePath)(optionalParams);
+			var canonicalPath = mod.OLSKRoutingSubstitutionFunctionForRoutePath(routePath)(optionalParams);
 
 			if (optionalParams && optionalParams.OLSKRoutingLanguage) {
 				canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
