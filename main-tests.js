@@ -120,38 +120,38 @@ describe('OLSKRoutingInputDataIsRouteObject', function test_OLSKRoutingInputData
 
 });
 
-describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test_OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams() {
+describe('OLSKRoutingCanonicalPath', function test_OLSKRoutingCanonicalPath() {
 
 	it('throws error if param1 not string', function() {
 		assert.throws(function() {
-			routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams(null);
+			routingLibrary.OLSKRoutingCanonicalPath(null);
 		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('returns path', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa'), '/alfa');
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa'), '/alfa');
 	});
 
 	it('returns substitutedPath', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa/:bravo', {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa/:bravo', {
 			bravo: 'charlie',
 		}), '/alfa/charlie');
 	});
 
 	it('prepends OLSKRoutingLanguage', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa', {
 			OLSKRoutingLanguage: 'en'
 		}), '/en/alfa');
 	});
 
 	it('prepends OLSKRoutingOrigin', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa', {
 			OLSKRoutingOrigin: 'bravo'
 		}), 'bravo/alfa');
 	});
 
 	it('adds query string for other params', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams('/alfa', {
+		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa', {
 			bravo: 'charlie',
 		}), '/alfa?bravo=charlie');
 	});

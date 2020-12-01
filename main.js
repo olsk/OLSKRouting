@@ -56,7 +56,7 @@
 			return true;
 		},
 
-		OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams (routePath, optionalParams = {}) {
+		OLSKRoutingCanonicalPath (routePath, optionalParams = {}) {
 			if (typeof routePath !== 'string') {
 				throw new Error('OLSKErrorInputNotValid');
 			}
