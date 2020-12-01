@@ -1,12 +1,6 @@
-/*!
- * OLSKRouting
- * Copyright(c) 2018 Rosano Coutinho
- * MIT Licensed
- */
+const { throws, deepEqual } = require('assert');
 
-var assert = require('assert');
-
-var routingLibrary = require('./main');
+const mod = require('./main.js');
 
 var OLSKTestingRouteObjectValid = function() {
 	return {
@@ -27,47 +21,47 @@ var OLSKTestingRouteObjectValidRedirect = function() {
 describe('OLSKRoutingModelIsValid', function test_OLSKRoutingModelIsValid() {
 
 	it('returns false if not object', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(null), false);
+		deepEqual(mod.OLSKRoutingModelIsValid(null), false);
 	});
 
 	it('returns false if OLSKRoutePath not string', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+		deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 			OLSKRoutePath: null,
 		})), false);
 	});
 
 	it('returns false if OLSKRouteMethod not string', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+		deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 			OLSKRouteMethod: null,
 		})), false);
 	});
 
 	it('returns false if OLSKRouteFunction not function', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+		deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 			OLSKRouteFunction: null,
 		})), false);
 	});
 
 	it('returns true', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValid()), true);
+		deepEqual(mod.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValid()), true);
 	});
 
 	describe('OLSKRouteSignature', function() {
 
 		it('returns false if not string', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteSignature: null,
 			})), false);
 		});
 
 		it('returns false if contains whitespace', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteSignature: ' alfa',
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValid()), true);
+			deepEqual(mod.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValid()), true);
 		});
 
 	});
@@ -75,13 +69,13 @@ describe('OLSKRoutingModelIsValid', function test_OLSKRoutingModelIsValid() {
 	describe('OLSKRouteIsHidden', function() {
 
 		it('returns false if not boolean', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteIsHidden: 'true',
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteIsHidden: true,
 			})), true);
 		});
@@ -91,13 +85,13 @@ describe('OLSKRoutingModelIsValid', function test_OLSKRoutingModelIsValid() {
 	describe('OLSKRouteMiddlewares', function() {
 
 		it('returns false if not array', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteMiddlewares: 'alfa',
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteMiddlewares: ['alfa'],
 			})), true);
 		});
@@ -107,13 +101,13 @@ describe('OLSKRoutingModelIsValid', function test_OLSKRoutingModelIsValid() {
 	describe('OLSKRouteRedirect', function() {
 
 		it('returns false if not string', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValidRedirect(), {
+			deepEqual(mod.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValidRedirect(), {
 				OLSKRouteRedirect: null,
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValidRedirect()), true);
+			deepEqual(mod.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValidRedirect()), true);
 		});
 
 	});
@@ -123,35 +117,35 @@ describe('OLSKRoutingModelIsValid', function test_OLSKRoutingModelIsValid() {
 describe('OLSKRoutingCanonicalPath', function test_OLSKRoutingCanonicalPath() {
 
 	it('throws error if param1 not string', function() {
-		assert.throws(function() {
-			routingLibrary.OLSKRoutingCanonicalPath(null);
+		throws(function() {
+			mod.OLSKRoutingCanonicalPath(null);
 		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('returns path', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa'), '/alfa');
+		deepEqual(mod.OLSKRoutingCanonicalPath('/alfa'), '/alfa');
 	});
 
 	it('returns substitutedPath', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa/:bravo', {
+		deepEqual(mod.OLSKRoutingCanonicalPath('/alfa/:bravo', {
 			bravo: 'charlie',
 		}), '/alfa/charlie');
 	});
 
 	it('prepends OLSKRoutingLanguage', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa', {
+		deepEqual(mod.OLSKRoutingCanonicalPath('/alfa', {
 			OLSKRoutingLanguage: 'en'
 		}), '/en/alfa');
 	});
 
 	it('prepends OLSKRoutingOrigin', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa', {
+		deepEqual(mod.OLSKRoutingCanonicalPath('/alfa', {
 			OLSKRoutingOrigin: 'bravo'
 		}), 'bravo/alfa');
 	});
 
 	it('adds query string for other params', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingCanonicalPath('/alfa', {
+		deepEqual(mod.OLSKRoutingCanonicalPath('/alfa', {
 			bravo: 'charlie',
 		}), '/alfa?bravo=charlie');
 	});
@@ -161,13 +155,13 @@ describe('OLSKRoutingCanonicalPath', function test_OLSKRoutingCanonicalPath() {
 describe('OLSKRoutingSubstitutionFunction', function test_OLSKRoutingSubstitutionFunction() {
 
 	it('throws error if not string', function() {
-		assert.throws(function() {
-			routingLibrary.OLSKRoutingSubstitutionFunction(null, []);
+		throws(function() {
+			mod.OLSKRoutingSubstitutionFunction(null, []);
 		}, /OLSKErrorInputNotValid/);
 	});
 
 	it.skip('returns function', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa', []).toString(), (
+		deepEqual(mod.OLSKRoutingSubstitutionFunction('/alfa', []).toString(), (
 		function(inputData) {
 			if (typeof inputData !== 'object' || inputData === null) {
 				throw new Error('OLSKErrorInputNotValidMissingInput');
@@ -193,36 +187,36 @@ describe('OLSKRoutingSubstitutionFunction', function test_OLSKRoutingSubstitutio
 	context('SubstitutionFunction', function() {
 
 		it('throws error if not object', function() {
-			assert.throws(function() {
-				routingLibrary.OLSKRoutingSubstitutionFunction('')();
+			throws(function() {
+				mod.OLSKRoutingSubstitutionFunction('')();
 			}, /OLSKErrorInputNotValidMissingInput/);
 		});
 
 		it('returns canonicalPath if no substitutions', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa')({}), '/alfa');
+			deepEqual(mod.OLSKRoutingSubstitutionFunction('/alfa')({}), '/alfa');
 		});
 
 		it('throws error if matching param missing', function() {
-			assert.throws(function() {
-				routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo')({});
+			throws(function() {
+				mod.OLSKRoutingSubstitutionFunction('/alfa/:bravo')({});
 			}, /OLSKErrorInputNotValidMissingRouteParam/);
 		});
 
 		it('returns substitutedPath for single param', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo')({
+			deepEqual(mod.OLSKRoutingSubstitutionFunction('/alfa/:bravo')({
 				bravo: 'charlie',
 			}), '/alfa/charlie');
 		});
 
 		it('returns substitutedPath for multiple params', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo/:delta')({
+			deepEqual(mod.OLSKRoutingSubstitutionFunction('/alfa/:bravo/:delta')({
 				bravo: 'charlie',
 				delta: 'echo'
 			}), '/alfa/charlie/echo');
 		});
 
 		it('returns substitutedPath for detailed param', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo(\\d+)')({
+			deepEqual(mod.OLSKRoutingSubstitutionFunction('/alfa/:bravo(\\d+)')({
 				bravo: '1',
 			}), '/alfa/1');
 		});
