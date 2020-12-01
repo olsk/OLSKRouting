@@ -24,50 +24,50 @@ var OLSKTestingRouteObjectValidRedirect = function() {
 	};
 };
 
-describe('OLSKRoutingInputDataIsRouteObject', function test_OLSKRoutingInputDataIsRouteObject() {
+describe('OLSKRoutingModelIsValid', function test_OLSKRoutingModelIsValid() {
 
 	it('returns false if not object', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(null), false);
+		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(null), false);
 	});
 
 	it('returns false if OLSKRoutePath not string', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 			OLSKRoutePath: null,
 		})), false);
 	});
 
 	it('returns false if OLSKRouteMethod not string', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 			OLSKRouteMethod: null,
 		})), false);
 	});
 
 	it('returns false if OLSKRouteFunction not function', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 			OLSKRouteFunction: null,
 		})), false);
 	});
 
 	it('returns true', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(OLSKTestingRouteObjectValid()), true);
+		assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValid()), true);
 	});
 
 	describe('OLSKRouteSignature', function() {
 
 		it('returns false if not string', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteSignature: null,
 			})), false);
 		});
 
 		it('returns false if contains whitespace', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteSignature: ' alfa',
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(OLSKTestingRouteObjectValid()), true);
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValid()), true);
 		});
 
 	});
@@ -75,13 +75,13 @@ describe('OLSKRoutingInputDataIsRouteObject', function test_OLSKRoutingInputData
 	describe('OLSKRouteIsHidden', function() {
 
 		it('returns false if not boolean', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteIsHidden: 'true',
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteIsHidden: true,
 			})), true);
 		});
@@ -91,13 +91,13 @@ describe('OLSKRoutingInputDataIsRouteObject', function test_OLSKRoutingInputData
 	describe('OLSKRouteMiddlewares', function() {
 
 		it('returns false if not array', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteMiddlewares: 'alfa',
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValid(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValid(), {
 				OLSKRouteMiddlewares: ['alfa'],
 			})), true);
 		});
@@ -107,13 +107,13 @@ describe('OLSKRoutingInputDataIsRouteObject', function test_OLSKRoutingInputData
 	describe('OLSKRouteRedirect', function() {
 
 		it('returns false if not string', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(Object.assign(OLSKTestingRouteObjectValidRedirect(), {
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(Object.assign(OLSKTestingRouteObjectValidRedirect(), {
 				OLSKRouteRedirect: null,
 			})), false);
 		});
 
 		it('returns true', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingInputDataIsRouteObject(OLSKTestingRouteObjectValidRedirect()), true);
+			assert.strictEqual(routingLibrary.OLSKRoutingModelIsValid(OLSKTestingRouteObjectValidRedirect()), true);
 		});
 
 	});

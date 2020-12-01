@@ -6,7 +6,7 @@
 
 	const mod = {
 
-		OLSKRoutingInputDataIsRouteObject (inputData) {
+		OLSKRoutingModelIsValid (inputData) {
 			if (typeof inputData !== 'object' || inputData === null) {
 				return false;
 			}
