@@ -158,16 +158,16 @@ describe('OLSKRoutingCanonicalPathWithRoutePathAndOptionalParams', function test
 
 });
 
-describe('OLSKRoutingSubstitutionFunctionForRoutePath', function test_OLSKRoutingSubstitutionFunctionForRoutePath() {
+describe('OLSKRoutingSubstitutionFunction', function test_OLSKRoutingSubstitutionFunction() {
 
 	it('throws error if not string', function() {
 		assert.throws(function() {
-			routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath(null, []);
+			routingLibrary.OLSKRoutingSubstitutionFunction(null, []);
 		}, /OLSKErrorInputNotValid/);
 	});
 
 	it.skip('returns function', function() {
-		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa', []).toString(), (
+		assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa', []).toString(), (
 		function(inputData) {
 			if (typeof inputData !== 'object' || inputData === null) {
 				throw new Error('OLSKErrorInputNotValidMissingInput');
@@ -194,35 +194,35 @@ describe('OLSKRoutingSubstitutionFunctionForRoutePath', function test_OLSKRoutin
 
 		it('throws error if not object', function() {
 			assert.throws(function() {
-				routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('')();
+				routingLibrary.OLSKRoutingSubstitutionFunction('')();
 			}, /OLSKErrorInputNotValidMissingInput/);
 		});
 
 		it('returns canonicalPath if no substitutions', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa')({}), '/alfa');
+			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa')({}), '/alfa');
 		});
 
 		it('throws error if matching param missing', function() {
 			assert.throws(function() {
-				routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa/:bravo')({});
+				routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo')({});
 			}, /OLSKErrorInputNotValidMissingRouteParam/);
 		});
 
 		it('returns substitutedPath for single param', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa/:bravo')({
+			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo')({
 				bravo: 'charlie',
 			}), '/alfa/charlie');
 		});
 
 		it('returns substitutedPath for multiple params', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa/:bravo/:delta')({
+			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo/:delta')({
 				bravo: 'charlie',
 				delta: 'echo'
 			}), '/alfa/charlie/echo');
 		});
 
 		it('returns substitutedPath for detailed param', function() {
-			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunctionForRoutePath('/alfa/:bravo(\\d+)')({
+			assert.strictEqual(routingLibrary.OLSKRoutingSubstitutionFunction('/alfa/:bravo(\\d+)')({
 				bravo: '1',
 			}), '/alfa/1');
 		});

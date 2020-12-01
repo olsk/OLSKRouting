@@ -61,7 +61,7 @@
 				throw new Error('OLSKErrorInputNotValid');
 			}
 
-			var canonicalPath = mod.OLSKRoutingSubstitutionFunctionForRoutePath(routePath)(optionalParams);
+			var canonicalPath = mod.OLSKRoutingSubstitutionFunction(routePath)(optionalParams);
 
 			if (optionalParams && optionalParams.OLSKRoutingLanguage) {
 				canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
@@ -80,7 +80,7 @@
 			return canonicalPath + (query ? `?${ query }` : '');
 		},
 
-		OLSKRoutingSubstitutionFunctionForRoutePath (routePath) {
+		OLSKRoutingSubstitutionFunction (routePath) {
 			if (typeof routePath !== 'string') {
 				throw new Error('OLSKErrorInputNotValid');
 			}
