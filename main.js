@@ -56,26 +56,32 @@
 			return true;
 		},
 
-		OLSKRoutingCanonicalPath (routePath, optionalParams = {}) {
+		_OLSKRoutingQuerify (inputData) {
+			return Object.entries(inputData).map(function (e) {
+				return e.join('=');
+			}).join('&')
+		},
+
+		OLSKRoutingCanonicalPath (routePath, params = {}) {
 			if (typeof routePath !== 'string') {
 				throw new Error('OLSKErrorInputNotValid');
 			}
 
-			var canonicalPath = mod.OLSKRoutingSubstitutionFunction(routePath)(optionalParams);
+			let canonicalPath = mod.OLSKRoutingSubstitutionFunction(routePath)(params);
 
-			if (optionalParams && optionalParams.OLSKRoutingLanguage) {
-				canonicalPath = ['/', optionalParams.OLSKRoutingLanguage, canonicalPath].join('');
+			if (params && params.OLSKRoutingLanguage) {
+				canonicalPath = ['/', params.OLSKRoutingLanguage, canonicalPath].join('');
 
-				delete optionalParams.OLSKRoutingLanguage;
+				delete params.OLSKRoutingLanguage;
 			}
 
-			if (optionalParams && optionalParams.OLSKRoutingOrigin) {
-				canonicalPath = [optionalParams.OLSKRoutingOrigin, canonicalPath].join('');
+			if (params && params.OLSKRoutingOrigin) {
+				canonicalPath = [params.OLSKRoutingOrigin, canonicalPath].join('');
 
-				delete optionalParams.OLSKRoutingOrigin;
+				delete params.OLSKRoutingOrigin;
 			}
 
-			const query = Object.keys(optionalParams).map(key => key + '=' + optionalParams[key]).join('&');
+			const query = mod._OLSKRoutingQuerify(params);
 
 			return canonicalPath + (query ? `?${ query }` : '');
 		},
