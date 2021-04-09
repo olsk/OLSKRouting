@@ -144,6 +144,17 @@ describe('OLSKRoutingCanonicalPath', function test_OLSKRoutingCanonicalPath() {
 		}), 'bravo/alfa');
 	});
 
+	it('postpends OLSKRoutingHash', function() {
+		const item = Math.random().toString();
+		const OLSKRoutingHash = {
+			[Math.random().toString()]: Math.random().toString(),
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(mod.OLSKRoutingCanonicalPath(item, {
+			OLSKRoutingHash,
+		}), item + '#' + mod._OLSKRoutingQuerify(OLSKRoutingHash));
+	});
+
 	it('adds query string for other params', function() {
 		deepEqual(mod.OLSKRoutingCanonicalPath('/alfa', {
 			bravo: 'charlie',

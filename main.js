@@ -81,6 +81,12 @@
 				delete params.OLSKRoutingOrigin;
 			}
 
+			if (params && params.OLSKRoutingHash) {
+				canonicalPath = canonicalPath + '#' + mod._OLSKRoutingQuerify(params.OLSKRoutingHash);
+
+				delete params.OLSKRoutingHash;
+			}
+
 			const query = mod._OLSKRoutingQuerify(params);
 
 			return canonicalPath + (query ? `?${ query }` : '');
