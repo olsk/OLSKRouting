@@ -67,6 +67,8 @@
 				throw new Error('OLSKErrorInputNotValid');
 			}
 
+			params = Object.assign({}, params);
+
 			let canonicalPath = mod.OLSKRoutingSubstitutionFunction(routePath)(params);
 
 			if (params && params.OLSKRoutingLanguage) {
